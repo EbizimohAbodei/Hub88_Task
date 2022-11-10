@@ -1,38 +1,65 @@
-.App {
+/* Styling for table */
+.styled-table {
+  border-collapse: collapse;
+  margin: 3rem 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin: 0;
+  position: absolute;
+  top: 7rem;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%);
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.styled-table tbody tr {
+  text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.styled-table tbody tr:not(.tableHead):hover {
+  background-color: #ddd;
 }
 
-.App-link {
-  color: #61dafb;
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr:nth-child(1) {
+  background: none;
+}
+
+/* back-to-top button styling */
+
+.backTop {
+  position: fixed;
+  right: 3rem;
+  bottom: 3rem;
+  height: 32px;
+  width: 32px;
+  border-style: none;
+  border-radius: 5rem;
+  background-color: #009879;
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.backTop:hover {
+  background-color: #37534d;
 }

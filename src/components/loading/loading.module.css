@@ -1,0 +1,44 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.loader {
+  width: 120px;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.loader span {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: auto;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 5rem;
+  background-color: white;
+  animation: bounce 0.5s alternate infinite;
+}
+
+.circle:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.circle:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+@keyframes bounce {
+  from {
+    transform: scaleX(1.2s);
+  }
+  to {
+    transform: translateY(-20px) scaleX(1);
+  }
+}
