@@ -1,7 +1,7 @@
 .searchForm {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  align-items: center;
 }
 
 .searchForm input[type="text"] {
@@ -14,10 +14,11 @@
   border: 2px solid #009879;
 }
 
-.searchForm input[type="submit"] {
+.searchForm button {
   height: 2.4rem;
+  width: 4rem;
 }
 
-.searchForm input[type="submit"] :hover {
+.searchForm button:hover {
   cursor: pointer;
 }

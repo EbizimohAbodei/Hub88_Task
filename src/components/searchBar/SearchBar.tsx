@@ -1,63 +1,35 @@
 import * as React from "react";
-import { Fragment } from "react";
-import { RouteComponentProps } from "@gatsbyjs/reach-router";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { Fragment, useState, useCallback, ChangeEvent } from "react";
 import classes from "./searchBar.module.css";
 
-export const GET_COUNTRY = gql`
-  query GetCountry($code: ID!) {
-    country(code: $code) {
-      name
-      code
-    }
-  }
-`;
+interface Props {
+  onSubmit: (values: string) => void;
+}
 
-interface CountriesProps extends RouteComponentProps {}
-
-const SearchBar: React.FC<CountriesProps> = () => {
-  const { data, loading, error, refetch } = useQuery(GET_COUNTRY, {
-    variables: { code: "NG" },
-  });
-
-  if (loading) {
-    return <div>Loading....</div>;
-  }
-
-  if (error) {
-    return <div>{error.message} </div>;
-  }
-
-  if (!data) {
-    return <div>Not found</div>;
-  }
-
-  // const [countryCode, setcountryCode] = useState("undefined");
-
-  const handleChange = () => {
-    // this.setState({ countryCode: e.target.value });
-    // return e.target.value;
-  };
-
-  const handleSubmit = () => {
-    // evt.preventDefault();
-    // console.log("evt", evt.target.value);
-  };
+const SearchBar: React.FC<Props> = ({ onSubmit }) => {
+  const [text, setText] = useState("");
+  const onInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  }, []);
+  const onSearchSubmit = useCallback(() => {
+    onSubmit(text);
+  }, [text, onSubmit]);
 
   return (
-    <Fragment>
-      <form onSubmit={handleSubmit} className={classes.searchForm}>
+    <>
+      <div className={classes.searchForm}>
         <input
           type="text"
           name="countryCode"
           placeholder="search by country code"
-          // value={this.state.value}
-          onChange={handleChange}
+          onChange={onInputChange}
+          value={text}
         />
-        <input type="submit" value="Submit" />
-      </form>
-    </Fragment>
+        <button className={classes.searchForm} onClick={onSearchSubmit}>
+          Search
+        </button>
+      </div>
+    </>
   );
 };
 

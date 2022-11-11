@@ -7,6 +7,8 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Loading from "./components/loading/Loading";
 import SearchBar from "./components/searchBar/SearchBar";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const FETCH_ALL_COUNTRIES = gql`
   query Query {
@@ -21,6 +23,23 @@ interface CountriesProps extends RouteComponentProps {}
 
 const Countries: React.FC<CountriesProps> = () => {
   const { data, loading, error, refetch } = useQuery(FETCH_ALL_COUNTRIES);
+
+  const [dat, setDat] = useState([]);
+  const [singleCountry, setsingleCountry] = useState("");
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setDat(
+      data.countries.filter(
+        (country: any) =>
+          country.code
+            .toLocaleLowerCase()
+            .indexOf(singleCountry.toLocaleLowerCase()) >= 0
+      )
+    );
+  }, [data, singleCountry]);
 
   if (loading) {
     return (
@@ -47,7 +66,7 @@ const Countries: React.FC<CountriesProps> = () => {
 
   return (
     <Fragment>
-      <SearchBar />
+      <SearchBar onSubmit={setsingleCountry} />
       <table className="styled-table">
         <thead>
           <tr>
@@ -55,39 +74,14 @@ const Countries: React.FC<CountriesProps> = () => {
             <th>Country Code</th>
           </tr>
         </thead>
-        {data.countries.map(
-          (country: {
-            name:
-              | boolean
-              | React.Key
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | React.ReactFragment
-              | null
-              | undefined;
-            code:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | React.ReactFragment
-              | React.ReactPortal
-              | null
-              | undefined;
-          }) => (
-            <tbody>
-              <tr>
-                <td>{country.name}</td>
-                <td>{country.code}</td>
-              </tr>
-            </tbody>
-          )
-        )}
+        {dat.map((country: { name: string; code: string }) => (
+          <tbody key={country.name}>
+            <tr>
+              <td>{country.name}</td>
+              <td>{country.code}</td>
+            </tr>
+          </tbody>
+        ))}
       </table>
       <button className="backTop" onClick={scrollTop}>
         <AiOutlineArrowUp />
