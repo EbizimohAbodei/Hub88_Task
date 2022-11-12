@@ -22,10 +22,11 @@ export const FETCH_ALL_COUNTRIES = gql`
 interface CountriesProps extends RouteComponentProps {}
 
 const Countries: React.FC<CountriesProps> = () => {
+  // eslint-disable-next-line
   const { data, loading, error, refetch } = useQuery(FETCH_ALL_COUNTRIES);
 
   const [dat, setDat] = useState([]);
-  const [singleCountry, setsingleCountry] = useState("");
+  const [singleCountry, setSingleCountry] = useState("");
 
   useEffect(() => {
     if (!data) {
@@ -66,7 +67,7 @@ const Countries: React.FC<CountriesProps> = () => {
 
   return (
     <Fragment>
-      <SearchBar onSubmit={setsingleCountry} />
+      <SearchBar onSearch={setSingleCountry} />
       <table className="styled-table">
         <thead>
           <tr>
