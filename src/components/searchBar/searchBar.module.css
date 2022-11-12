@@ -1,24 +1,37 @@
-.searchForm {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 4rem;
 }
-
-.searchForm input[type="text"] {
-  height: 2rem;
+.searchForm {
   width: 30%;
-  outline: none;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.2rem;
+  color: black;
+  outline-color: black;
+  outline-style: none;
 }
 
-.searchForm input[type="text"]:focus {
+.searchForm:focus {
   border: 2px solid #009879;
 }
 
-.searchForm button {
-  height: 2.4rem;
-  width: 4rem;
+.searchForm input[type="text"] {
+  height: 2.3rem;
+  width: 80%;
+  outline: none;
+  border: none;
+  padding-left: 0.5rem;
 }
 
-.searchForm button:hover {
-  cursor: pointer;
+.searchForm input::placeholder {
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
+.searchIcon {
+  position: relative;
+  left: 0.3rem;
+  top: 0.2rem;
 }

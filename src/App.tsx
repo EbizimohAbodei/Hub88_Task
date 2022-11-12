@@ -69,8 +69,8 @@ const Countries: React.FC<CountriesProps> = () => {
     <Fragment>
       <SearchBar onSearch={setSingleCountry} />
       {dat.length > 0 ? (
-        <div>
-          <table className="styled-table">
+        <div className="tableContainer">
+          <table className="table">
             <thead>
               <tr>
                 <th>Country Name</th>
