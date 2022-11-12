@@ -68,25 +68,33 @@ const Countries: React.FC<CountriesProps> = () => {
   return (
     <Fragment>
       <SearchBar onSearch={setSingleCountry} />
-      <table className="styled-table">
-        <thead>
-          <tr>
-            <th>Country Name</th>
-            <th>Country Code</th>
-          </tr>
-        </thead>
-        {dat.map((country: { name: string; code: string }) => (
-          <tbody key={country.name}>
-            <tr>
-              <td>{country.name}</td>
-              <td>{country.code}</td>
-            </tr>
-          </tbody>
-        ))}
-      </table>
-      <button className="backTop" onClick={scrollTop}>
-        <AiOutlineArrowUp />
-      </button>
+      {dat.length > 0 ? (
+        <div>
+          <table className="styled-table">
+            <thead>
+              <tr>
+                <th>Country Name</th>
+                <th>Country Code</th>
+              </tr>
+            </thead>
+            {dat.map((country: { name: string; code: string }) => (
+              <tbody key={country.name}>
+                <tr>
+                  <td>{country.name}</td>
+                  <td>{country.code}</td>
+                </tr>
+              </tbody>
+            ))}
+          </table>
+          <button className="backTop" onClick={scrollTop}>
+            <AiOutlineArrowUp />
+          </button>
+        </div>
+      ) : (
+        <div className="notFoundContainer">
+          <p className="notFound">Country not found</p>
+        </div>
+      )}
     </Fragment>
   );
 };

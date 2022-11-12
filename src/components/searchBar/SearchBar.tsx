@@ -31,9 +31,6 @@ const SearchBar: React.FC<Props> = ({ onSearch }) => {
           onChange={onInputChange}
           value={text}
         />
-        {/* <button className={classes.searchForm} onClick={onSearchSubmit}>
-          Search
-        </button> */}
       </div>
     </>
   );

@@ -45,6 +45,19 @@
   background: none;
 }
 
+/* Styling for no search result */
+
+.notFoundContainer {
+  background-color: #009879;
+  margin: 2rem 30%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.notFound {
+  text-align: center;
+}
+
 /* back-to-top button styling */
 
 .backTop {
