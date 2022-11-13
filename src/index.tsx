@@ -4,6 +4,7 @@ import "./index.css";
 import { StrictMode } from "react";
 import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
 // import { createRoot } from "react-dom/client";
 
 const root = ReactDOM.createRoot(

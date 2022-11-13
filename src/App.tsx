@@ -10,6 +10,7 @@ import SearchBar from "./components/searchBar/SearchBar";
 import { useState } from "react";
 import { useEffect } from "react";
 
+// Create a query for streamlining result from fetch
 export const FETCH_ALL_COUNTRIES = gql`
   query Query {
     countries {
@@ -19,28 +20,36 @@ export const FETCH_ALL_COUNTRIES = gql`
   }
 `;
 
+// Creating an interface for countries function props
 interface CountriesProps extends RouteComponentProps {}
 
 const Countries: React.FC<CountriesProps> = () => {
+  // Fetching the countries data with "useQuery" and defined query in lines 14-21
   // eslint-disable-next-line
   const { data, loading, error, refetch } = useQuery(FETCH_ALL_COUNTRIES);
 
-  const [dat, setDat] = useState([]);
-  const [singleCountry, setSingleCountry] = useState("");
+  // Defining state to hold our fetched data for rendering
+  const [filteredData, setFilteredData] = useState([]);
 
+  // Defining state to hold user input in search-bar
+  const [userInput, setUserInput] = useState("");
+
+  // A useEffect function to watch for changes in our data and userInput
   useEffect(() => {
     if (!data) {
       return;
     }
-    setDat(
+
+    //Setting the filteredData state with filtered data based off on user input
+    setFilteredData(
       data.countries.filter(
         (country: any) =>
           country.code
             .toLocaleLowerCase()
-            .indexOf(singleCountry.toLocaleLowerCase()) >= 0
+            .indexOf(userInput.toLocaleLowerCase()) >= 0
       )
     );
-  }, [data, singleCountry]);
+  }, [data, userInput]);
 
   if (loading) {
     return (
@@ -67,8 +76,8 @@ const Countries: React.FC<CountriesProps> = () => {
 
   return (
     <Fragment>
-      <SearchBar onSearch={setSingleCountry} />
-      {dat.length > 0 ? (
+      <SearchBar onSearch={setUserInput} />
+      {filteredData.length > 0 ? (
         <div className="tableContainer">
           <table className="table">
             <thead>
@@ -77,7 +86,7 @@ const Countries: React.FC<CountriesProps> = () => {
                 <th>Country Code</th>
               </tr>
             </thead>
-            {dat.map((country: { name: string; code: string }) => (
+            {filteredData.map((country: { name: string; code: string }) => (
               <tbody key={country.name}>
                 <tr>
                   <td>{country.name}</td>
