@@ -3,13 +3,13 @@ import { useState, useCallback, ChangeEvent } from "react";
 import classes from "./searchBar.module.css";
 import { RiSearchLine } from "react-icons/ri";
 
-// Creating our interface for props passing
+// Creating an interface for props parsing
 interface Props {
   onSearch: (values: string) => void;
 }
 
 const SearchBar: React.FC<Props> = ({ onSearch }) => {
-  // Creating a state to hold user input onChange
+  // Creating a "text" state to hold users' input onChange
   const [text, setText] = useState("");
 
   // A callBack function that sets the text state, onSearch prop and watches for changes in the onSearch prop.

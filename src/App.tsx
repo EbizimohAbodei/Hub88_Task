@@ -24,15 +24,14 @@ export const FETCH_ALL_COUNTRIES = gql`
 interface CountriesProps extends RouteComponentProps {}
 
 const Countries: React.FC<CountriesProps> = () => {
-  // Fetching the countries data with "useQuery" and defined query in lines 14-21
-  // eslint-disable-next-line
-  const { data, loading, error, refetch } = useQuery(FETCH_ALL_COUNTRIES);
-
   // Defining state to hold our fetched data for rendering
   const [filteredData, setFilteredData] = useState([]);
 
   // Defining state to hold user input in search-bar
   const [userInput, setUserInput] = useState("");
+
+  //   // Fetching the countries data with "useQuery" and defined query in lines 14-21
+  const { data, loading, error } = useQuery(FETCH_ALL_COUNTRIES);
 
   // A useEffect function to watch for changes in our data and userInput
   useEffect(() => {
@@ -42,7 +41,7 @@ const Countries: React.FC<CountriesProps> = () => {
 
     //Setting the filteredData state with filtered data based off on user input
     setFilteredData(
-      data.countries.filter(
+      data?.countries?.filter(
         (country: any) =>
           country.code
             .toLocaleLowerCase()
@@ -64,7 +63,9 @@ const Countries: React.FC<CountriesProps> = () => {
   }
 
   if (!data) {
-    <div>Data not found</div>;
+    <div>
+      <p>Data not found</p>
+    </div>;
   }
 
   const scrollTop = () => {
@@ -74,10 +75,12 @@ const Countries: React.FC<CountriesProps> = () => {
     });
   };
 
+  // const localStorageCountries: any = JSON.parse(localStorageData) || [];
+
   return (
     <Fragment>
       <SearchBar onSearch={setUserInput} />
-      {filteredData.length > 0 ? (
+      {filteredData?.length > 0 ? (
         <div className="tableContainer">
           <table className="table">
             <thead>
@@ -101,7 +104,9 @@ const Countries: React.FC<CountriesProps> = () => {
         </div>
       ) : (
         <div className="notFoundContainer">
-          <p className="notFound">Country not found</p>
+          <p className="notFound">
+            No country found with the searched country code
+          </p>
         </div>
       )}
     </Fragment>
